@@ -6,11 +6,11 @@ sys.path.append(os.path.abspath('.'))
 
 from src.cleansing import clean
 from dotenv import load_dotenv
-from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 from tweepy import API
-
+from src.Listener.base import BaseListener
+from src.DataHandler.FileHandler import FileHandler
 
 load_dotenv(verbose=True)
 
@@ -32,23 +32,17 @@ tracklist = ['#actnow', '#change', '#noplastic', '#environment', '#gogreen', '#s
              '#climateemergency', '#climatestrike', '#climatecrisis']
 
 
-class StdOutListener(StreamListener):
-
-    def on_data(self, data):
-        data = clean(data)
-        print(data)
-
-    def on_error(self, status):
-        print(status)
-
-
 if __name__ == "__main__":
 
+    # Autenthication credentials for Twitter
     auth = OAuthHandler(API_KEY, API_SECRET_KEY)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
+    # Twitter API definition and DataHandling object
     api = API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+    f = FileHandler("tweets_", os.path.abspath("data/"))
 
-    listener = StdOutListener(StdOutListener(api))
+    # Define the listener and the stream
+    listener = BaseListener(api=api, datahandler=f, cleaner=clean)
     stream = Stream(auth, listener)
     stream.filter(track=tracklist)

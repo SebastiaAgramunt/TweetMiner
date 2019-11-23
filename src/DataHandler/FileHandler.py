@@ -21,14 +21,14 @@ class FileHandler(DataHandler):
             boolean indicating if we want to rotate the file or not
 
         __maxsize:
-            Max file size in bytes. Not used if rotate is false
+            Max file size in bytes. Not used if rotate is False. Default is 100MB
 
 
         Methods
         -------
         save:
             save data on the current file
-        """
+    """
 
     def __init__(self, filename, path, rotate=True,  maxsize=1e8):
         self.__filename = filename
@@ -41,7 +41,7 @@ class FileHandler(DataHandler):
 
     def save(self, data):
         with open(self.__fname, 'a+') as file:
-            file.write(data)
+            file.write(data+'\n')
         if self.__rotate:
             self.__check_size()
 

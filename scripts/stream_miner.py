@@ -20,7 +20,7 @@ API_SECRET_KEY = os.getenv("API_SECRET_KEY")
 ACCESS_TOKEN=os.getenv('ACCESS_TOKEN')
 ACCESS_TOKEN_SECRET=os.getenv("ACCESS_TOKEN_SECRET")
 
-
+# TODO: write a config file to put the tracklist
 tracklist = ['#actnow', '#change', '#noplastic', '#environment', '#gogreen', '#saveourplanet',
              '#climatechange', '#eco', 'environment', '#fridaysforfuture', '#bethechange', '#plastic', 'methane',
              '#savetheworld', '#ecology', '#klimawandel', '#plasticpollution', '#sustainableliving', '#recycle',
@@ -40,6 +40,8 @@ if __name__ == "__main__":
 
     # Twitter API definition and DataHandling object
     api = API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+
+    # TODO: in the config file let it change the folder where we write
     f = FileHandler("tweets_", os.path.abspath("data/"))
 
     # Define the listener and the stream

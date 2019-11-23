@@ -35,6 +35,7 @@ tracklist = ['#actnow', '#change', '#noplastic', '#environment', '#gogreen', '#s
 class StdOutListener(StreamListener):
 
     def on_data(self, data):
+        data = clean(data)
         print(data)
 
     def on_error(self, status):

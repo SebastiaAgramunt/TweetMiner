@@ -6,5 +6,5 @@ class DataHandler(ABC):
         pass
 
     @abstractmethod
-    def save(self, *args, **kwargs):
+    def save(self, data):
         pass

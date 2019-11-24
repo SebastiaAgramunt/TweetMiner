@@ -1,4 +1,6 @@
 import os
+from pathlib import Path
+
 
 def create_dirs(*paths):
     """
@@ -10,3 +12,7 @@ def create_dirs(*paths):
 
         if not os.path.exists(path):
             os.mkdir(path)
+
+
+def project_abs_path():
+    return Path(__file__).parent.parent.parent
